@@ -8,4 +8,5 @@
     <string name="note_title">Note title</string>
     <string name="no_notes_found">No notes found</string>
     <string name="no_notes_found_click_the_add_button_to_create_a_note">No notes found, click the add button to create a note.</string>
+    <string name="edit_note">Edit Note</string>
 </resources>

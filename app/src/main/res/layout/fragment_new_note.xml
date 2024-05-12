@@ -1,24 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".fragments.NewNoteFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgColorPrimary"
+        android:padding="16dp">
 
+        <ImageView
+            android:id="@+id/image_go_back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_angle_left"
+            app:layout_constraintBottom_toBottomOf="@id/text_heading"
+            app:layout_constraintEnd_toStartOf="@id/text_heading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_heading" />
 
         <TextView
             android:id="@+id/text_heading"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/app_name"
+            android:gravity="center_vertical"
+            android:text="@string/new_note"
             android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/image_go_back_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_note_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/round_10"
+            android:backgroundTint="@color/bgColorSecondary"
+            android:fontFamily="@font/poppins"
+            android:hint="@string/note_title"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_heading" />
+
+        <com.yahiaangelo.markdownedittext.MarkdownEditText
+            android:id="@+id/edit_note_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_10"
+            android:backgroundTint="@color/bgColorSecondary"
+            android:fontFamily="@font/poppins"
+            android:gravity="top"
+            android:hint="@string/note_description"
+            android:padding="10dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/stylesbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_note_title" />
+
+        <com.yahiaangelo.markdownedittext.MarkdownStylesBar
+            android:id="@+id/stylesbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:buttonColor="@color/style_button_color"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
