@@ -17,6 +17,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="8dp"
+            android:layout_marginBottom="4dp"
             android:src="@drawable/ic_angle_left"
             app:layout_constraintBottom_toBottomOf="@id/text_heading"
             app:layout_constraintEnd_toStartOf="@id/text_heading"
@@ -51,6 +52,7 @@
             android:maxLines="1"
             android:padding="10dp"
             android:textSize="20sp"
+            android:textColor="@color/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_heading" />
@@ -67,19 +69,10 @@
             android:hint="@string/note_description"
             android:padding="10dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/stylesbar"
+            android:textColor="@color/textColorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_note_title" />
-
-        <com.yahiaangelo.markdownedittext.MarkdownStylesBar
-            android:id="@+id/stylesbar"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:clipToPadding="false"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            app:buttonColor="@color/style_button_color"
-            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
