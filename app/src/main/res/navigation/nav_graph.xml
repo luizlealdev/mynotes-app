@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="dev.luizleal.mynotes.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_newNoteFragment"
+            app:destination="@id/newNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newNoteFragment"
+        android:name="dev.luizleal.mynotes.fragments.NewNoteFragment"
+        android:label="fragment_new_note"
+        tools:layout="@layout/fragment_new_note">
+        <action
+            android:id="@+id/action_newNoteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="dev.luizleal.mynotes.fragments.EditNoteFragment"
+        android:label="fragment_edit_note"
+        tools:layout="@layout/fragment_edit_note">
+        <action
+            android:id="@+id/action_editNoteFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <argument
+        android:name="note"
+        app:nullable="true" />
+</navigation>
