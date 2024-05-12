@@ -10,4 +10,5 @@
     <string name="edit_note">Edit Note</string>
     <string name="go_back">Go Back</string>
     <string name="settings">Settings</string>
+    <string name="save">Save</string>
 </resources>
