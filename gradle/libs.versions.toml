@@ -20,6 +20,10 @@ lifecycleViewmodelKtx = "2.7.0"
 lifecycleCompiler = "2.7.0"
 roomCompiler = "2.6.1"
 markdownedittext = "1.1.3"
+kotlinx = "1.1.0"
+orgJetbrainsKotlinPluginParcelizeGradlePlugin = "2.0.0-RC3"
+kotlinAndroidExtensions = "2.0.0-RC3"
+kotlinGradlePlugin = "2.0.0-RC3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +45,10 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 androidx-lifecycle-compiler = { group = "androidx.lifecycle", name = "lifecycle-compiler", version.ref = "lifecycleCompiler" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 markdownedittext = { group = "io.github.yahiaangelo.markdownedittext", name = "markdownedittext", version.ref = "markdownedittext" }
+kotlinx = { group = "com.kotlinx", name = "kotlinx", version.ref = "kotlinx" }
+org-jetbrains-kotlin-plugin-parcelize-gradle-plugin = { group = "org.jetbrains.kotlin.plugin.parcelize", name = "org.jetbrains.kotlin.plugin.parcelize.gradle.plugin", version.ref = "orgJetbrainsKotlinPluginParcelizeGradlePlugin" }
+kotlin-android-extensions = { group = "org.jetbrains.kotlin", name = "kotlin-android-extensions", version.ref = "kotlinAndroidExtensions" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

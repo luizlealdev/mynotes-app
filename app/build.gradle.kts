@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.ir.backend.js.compile
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -38,8 +40,8 @@ android {
     buildFeatures {
         dataBinding = true
     }
-    packagingOptions {
-        exclude("META-INF/gradle/incremental.annotation.processors")
+    packaging {
+        resources.excludes.add("META-INF/gradle/incremental.annotation.processors")
     }
 }
 
