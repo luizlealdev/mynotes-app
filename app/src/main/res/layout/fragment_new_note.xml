@@ -7,72 +7,80 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColorPrimary"
-        android:padding="16dp">
+        android:background="@color/bgColorPrimary">
 
         <ImageView
             android:id="@+id/image_go_back_icon"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:clickable="true"
+            android:contentDescription="@string/go_back"
+            android:background="@drawable/round_50"
+            android:backgroundTint="@color/bgColorSecondary"
             android:focusable="true"
-            android:padding="8dp"
-            android:layout_marginBottom="4dp"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/ic_angle_left"
-            app:layout_constraintBottom_toBottomOf="@id/text_heading"
-            app:layout_constraintEnd_toStartOf="@id/text_heading"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_heading" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/text_heading"
+        <ImageView
+            android:id="@+id/image_settings"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="center_vertical"
-            android:text="@string/new_note"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/image_go_back_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:contentDescription="@string/settings"
+            android:background="@drawable/round_50"
+            android:backgroundTint="@color/bgColorSecondary"
+            android:focusable="true"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/edit_note_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/round_10"
-            android:backgroundTint="@color/bgColorSecondary"
             android:fontFamily="@font/poppins"
             android:hint="@string/note_title"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="14dp"
             android:textColor="@color/textColorPrimary"
+            android:textColorHint="@color/textColorSecondary"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_heading" />
+           app:layout_constraintTop_toBottomOf="@id/image_go_back_icon" />
 
-        <com.yahiaangelo.markdownedittext.MarkdownEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_note_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/round_10"
-            android:backgroundTint="@color/bgColorSecondary"
             android:fontFamily="@font/poppins"
             android:gravity="top"
             android:hint="@string/note_description"
-            android:padding="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/textColorSecondary"
+            android:padding="16dp"
+            android:textColor="@color/textColorPrimary"
+            android:textColorHint="@color/textColorSecondary"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_note_title" />
+            app:layout_constraintTop_toBottomOf="@id/edit_note_title"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
