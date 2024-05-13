@@ -1,8 +1,8 @@
 package dev.luizleal.mynotes.database
 
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import dev.luizleal.mynotes.model.Note
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
