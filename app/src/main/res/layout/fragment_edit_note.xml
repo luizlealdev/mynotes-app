@@ -88,8 +88,8 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="36dp"
             android:backgroundTint="@color/blue"
             android:clickable="true"
             android:contentDescription="@string/save"
