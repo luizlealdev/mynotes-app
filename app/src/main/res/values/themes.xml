@@ -8,4 +8,12 @@
     </style>
 
     <style name="Theme.MyNotes" parent="Base.Theme.MyNotes"></style>
+
+    <style name="AlertDialogStyle"
+        android:parent="ThemeOverlay.MaterialComponents.Dialog.Alert"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <item name="android:background">@color/bgColorSecondary</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+    </style>
 </resources>

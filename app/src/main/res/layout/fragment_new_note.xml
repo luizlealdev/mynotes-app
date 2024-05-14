@@ -10,7 +10,7 @@
         android:background="@color/bgColorPrimary">
 
         <ImageButton
-            android:id="@+id/image_go_back_icon"
+            android:id="@+id/button_go_back_icon"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
@@ -27,7 +27,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
-            android:id="@+id/image_settings"
+            android:id="@+id/button_menu_icon"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
@@ -62,7 +62,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_go_back_icon" />
+            app:layout_constraintTop_toBottomOf="@id/button_go_back_icon" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_note_description"
