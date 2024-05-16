@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import dev.luizleal.mynotes.R
 import dev.luizleal.mynotes.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var homeBinding: FragmentHomeBinding? = null
     private val binding get() = homeBinding!!
