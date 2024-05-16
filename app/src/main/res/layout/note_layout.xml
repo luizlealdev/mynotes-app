@@ -23,6 +23,7 @@
                 android:padding="8dp">
 
                 <TextView
+                    android:id="@+id/text_note_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
@@ -32,6 +33,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/text_note_description"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
@@ -39,6 +41,7 @@
                     android:textColor="@color/textColorSecondary" />
 
                 <TextView
+                    android:id="@+id/text_note_last_change"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
