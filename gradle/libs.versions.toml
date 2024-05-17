@@ -24,6 +24,8 @@ kotlinx = "1.1.0"
 orgJetbrainsKotlinPluginParcelizeGradlePlugin = "2.0.0-RC3"
 kotlinAndroidExtensions = "2.0.0-RC3"
 kotlinGradlePlugin = "2.0.0-RC3"
+androidxNavigationSafeargsGradlePlugin = "2.7.5"
+androidxNavigationSafeargsKotlinGradlePlugin = "2.7.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +51,8 @@ kotlinx = { group = "com.kotlinx", name = "kotlinx", version.ref = "kotlinx" }
 org-jetbrains-kotlin-plugin-parcelize-gradle-plugin = { group = "org.jetbrains.kotlin.plugin.parcelize", name = "org.jetbrains.kotlin.plugin.parcelize.gradle.plugin", version.ref = "orgJetbrainsKotlinPluginParcelizeGradlePlugin" }
 kotlin-android-extensions = { group = "org.jetbrains.kotlin", name = "kotlin-android-extensions", version.ref = "kotlinAndroidExtensions" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
+androidx-androidx-navigation-safeargs-gradle-plugin = { group = "androidx.navigation.safeargs", name = "androidx.navigation.safeargs.gradle.plugin", version.ref = "androidxNavigationSafeargsGradlePlugin" }
+androidx-androidx-navigation-safeargs-kotlin-gradle-plugin = { group = "androidx.navigation.safeargs.kotlin", name = "androidx.navigation.safeargs.kotlin.gradle.plugin", version.ref = "androidxNavigationSafeargsKotlinGradlePlugin" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
