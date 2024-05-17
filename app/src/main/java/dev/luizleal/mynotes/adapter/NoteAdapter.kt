@@ -2,10 +2,12 @@ package dev.luizleal.mynotes.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.luizleal.mynotes.databinding.NoteLayoutBinding
+import dev.luizleal.mynotes.fragments.HomeFragmentDirections
 import dev.luizleal.mynotes.model.Note
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
@@ -19,6 +21,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
                 LayoutInflater.from(parent.context), parent, false
             )
         )
+
     }
 
     override fun onBindViewHolder(holder: NoteAdapter.NoteViewHolder, position: Int) {
@@ -29,7 +32,9 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.itemBinding.textNoteLastChange.text = currentNote.noteLastChangeData
 
         holder.itemView.setOnClickListener {
-            TODO("do not implementable yet")
+            val direction = HomeFragmentDirections.actionHomeFragmentToEditNoteFragment(currentNote)
+
+            it.findNavController().navigate(direction)
         }
     }
 
