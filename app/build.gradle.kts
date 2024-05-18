@@ -71,5 +71,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    ksp("androidx.room:room-compiler:2.7.5")
+    ksp("androidx.room:room-compiler:2.6.1")
 }
