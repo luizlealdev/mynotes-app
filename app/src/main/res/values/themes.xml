@@ -16,5 +16,6 @@
         <item name="android:colorAccent">@color/blue</item>
         <item name="android:textColor">@color/textColorSecondary</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 </resources>
