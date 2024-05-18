@@ -4,23 +4,25 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+        android:layout_margin="4dp"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="8dp"
+            android:backgroundTint="@color/bgColorSecondary"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_10"
-                android:backgroundTint="@color/bgColorSecondary"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/text_note_title"
