@@ -76,7 +76,7 @@
             android:textSize="16sp"
             android:visibility="gone"
             android:gravity="center"/>
-        
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_notes"
             android:layout_width="0dp"
