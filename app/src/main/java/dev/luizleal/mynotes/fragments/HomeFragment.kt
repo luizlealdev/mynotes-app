@@ -78,10 +78,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun searchNote() {
-        binding.editNoteSearch.addTextChangedListener { text ->
-            text?.let {
-                notesViewModel.searchNote(it.toString()).observe(viewLifecycleOwner) { list ->
-                    noteAdapter.differ.submitList(list)
+        binding.editNoteSearch.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                binding.editNoteSearch.addTextChangedListener { text ->
+                    text?.let {
+                        notesViewModel.searchNote(it.toString())
+                            .observe(viewLifecycleOwner) { list ->
+                                noteAdapter.differ.submitList(list)
+                            }
+                    }
                 }
             }
         }
