@@ -4,19 +4,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_margin="4dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:clickable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="8dp"
             android:backgroundTint="@color/bgColorSecondary"
-            android:focusable="true">
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
                     android:gravity="end"
-                    android:text="8 may"
+                    android:text="- ---"
                     android:textColor="@color/textColorSecondary" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
