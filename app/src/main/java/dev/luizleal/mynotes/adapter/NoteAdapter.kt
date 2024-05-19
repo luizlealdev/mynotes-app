@@ -1,7 +1,9 @@
 package dev.luizleal.mynotes.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -32,6 +34,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.itemBinding.textNoteLastChange.text = currentNote.noteLastChangeData
 
         holder.itemView.setOnClickListener {
+            Log.d("To EditNote", "click worked")
             val direction = HomeFragmentDirections.actionHomeFragmentToEditNoteFragment(currentNote)
 
             it.findNavController().navigate(direction)
