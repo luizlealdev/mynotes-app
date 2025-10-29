@@ -6,10 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
-import dev.luizleal.mynotes.presentation.screens.home.HomeScreen
+import dev.luizleal.mynotes.presentation.navigation.AppNavHost
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,12 +18,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyNotesTheme {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .statusBarsPadding()
-                        .navigationBarsPadding()
+                    modifier = Modifier.safeDrawingPadding()
                 ) {
-                    HomeScreen()
+                    AppNavHost()
                 }
             }
         }
