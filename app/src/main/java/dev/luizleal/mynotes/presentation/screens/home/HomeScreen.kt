@@ -22,7 +22,9 @@ import dev.luizleal.mynotes.presentation.components.SearchBar
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigateToAddNote: () -> Unit,
+) {
 
     var isFabExpanded by remember { mutableStateOf(false) }
 
@@ -34,7 +36,7 @@ fun HomeScreen() {
                     isFabExpanded = !isFabExpanded
                 },
                 onOptionClick = { option ->
-
+                    onNavigateToAddNote()
                 }
             )
         }
@@ -61,6 +63,8 @@ fun HomeScreen() {
 @Composable
 private fun HomeScreenPreview() {
     MyNotesTheme {
-        HomeScreen()
+        HomeScreen(
+            onNavigateToAddNote = {}
+        )
     }
 }

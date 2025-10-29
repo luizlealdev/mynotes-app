@@ -22,19 +22,19 @@ import dev.luizleal.mynotes.R
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 
 @Composable
-fun AddNoteScreen(modifier: Modifier = Modifier) {
+fun AddNoteScreen(
+    onNavigateBack: () -> Unit
+) {
     Scaffold { innerPadding ->
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .consumeWindowInsets(innerPadding)
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
             Row {
                 IconButton(
-                    onClick = {
-                        //TODO: Voltar para tela inicial
-                    }
+                    onClick = onNavigateBack
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_arrow_left),
@@ -91,7 +91,9 @@ fun AddNoteScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun AddNoteScreenPreview() {
     MyNotesTheme {
-        AddNoteScreen()
+        AddNoteScreen(
+            onNavigateBack = {}
+        )
     }
 }
 
