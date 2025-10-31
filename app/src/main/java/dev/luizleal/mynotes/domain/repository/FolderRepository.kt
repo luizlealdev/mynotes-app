@@ -7,6 +7,6 @@ interface FolderRepository {
 
     suspend fun insertFolder(folder: Folder)
     suspend fun updateFolder(folder: Folder)
-    suspend fun deleteFolderFolder(folder: Folder)
+    suspend fun deleteFolder(folder: Folder)
     fun getAllFolders(): Flow<List<Folder>>
 }
