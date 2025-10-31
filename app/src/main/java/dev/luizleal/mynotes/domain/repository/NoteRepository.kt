@@ -7,8 +7,8 @@ interface NoteRepository {
     suspend fun insertNote(note: Note)
     suspend fun updateNote(note: Note)
     suspend fun deleteNote(note: Note)
-    fun getAllNotes()
-    fun getNoteById(id: Long)
-    fun getNotesByFolderId(id: Long)
-    fun searchNotes(query: String)
+    fun getAllNotes(): List<Note?>
+    fun getNoteById(id: Long): Note?
+    fun getNotesByFolderId(id: Long): List<Note?>
+    fun searchNotes(query: String): List<Note?>
 }
