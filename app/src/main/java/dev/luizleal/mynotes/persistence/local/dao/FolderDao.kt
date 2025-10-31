@@ -1,5 +1,6 @@
 package dev.luizleal.mynotes.persistence.local.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
@@ -8,6 +9,7 @@ import dev.luizleal.mynotes.persistence.entity.FolderEntity
 import dev.luizleal.mynotes.util.Constants
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface FolderDao {
 
     @Insert
