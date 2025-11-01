@@ -10,9 +10,9 @@ fun FolderEntity.toModel() = Folder(
     name = name,
     color = color,
     createdAt = createdAt
-        ?.toInstant()
-        ?.atZone(ZoneId.systemDefault())
-        ?.toLocalDateTime()
+        .toInstant()
+        .atZone(ZoneId.systemDefault())
+        .toLocalDateTime()
 )
 
 fun Folder.toEntity() = FolderEntity(
@@ -22,5 +22,5 @@ fun Folder.toEntity() = FolderEntity(
     createdAt = createdAt
         ?.atZone(ZoneId.systemDefault())
         ?.toInstant()
-        ?.let { Date.from(it) }
+        ?.let { Date.from(it) } ?: Date()
 )
