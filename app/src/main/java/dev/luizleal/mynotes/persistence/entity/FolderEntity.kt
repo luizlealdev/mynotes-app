@@ -12,5 +12,5 @@ data class FolderEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val color: FolderColor = FolderColor.BLUE,
-    @ColumnInfo(name = "created_at") val createdAt: Date = Date()
+    @ColumnInfo(name = "created_at") val createdAt: Date? = Date()
 )

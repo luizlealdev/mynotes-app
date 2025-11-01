@@ -10,9 +10,9 @@ fun NoteEntity.toModel() = Note(
     title = title,
     content = content,
     createdAt = createdAt
-        .toInstant() // converte Date → Instant (UTC)
-        .atZone(ZoneId.systemDefault()) // ajusta para o fuso local
-        .toLocalDateTime(), // Remove o fuso, ficando só data + hora
+        ?.toInstant() // converte Date → Instant (UTC)
+        ?.atZone(ZoneId.systemDefault()) // ajusta para o fuso local
+        ?.toLocalDateTime(), // Remove o fuso, ficando só data + hora
     updatedAt = updatedAt
         ?.toInstant() //Pode ser nulo, então safe call
         ?.atZone(ZoneId.systemDefault()) // ajusta para o fuso
@@ -24,11 +24,10 @@ fun Note.toEntity() = NoteEntity(
     id = id,
     title = title,
     content = content,
-    createdAt = Date.from(
-        createdAt
-            ?.atZone(ZoneId.systemDefault()) //Transforma o ZonedDateTime em um Instant (ponto no tempo em UTC)
-            ?.toInstant() //Converte o Instant em um Date (classe usada no Room)
-    ),
+    createdAt = createdAt
+        ?.atZone(ZoneId.systemDefault())
+        ?.toInstant()
+        ?.let { Date.from(it) },
     updatedAt = updatedAt
         ?.atZone(ZoneId.systemDefault())
         ?.toInstant()
