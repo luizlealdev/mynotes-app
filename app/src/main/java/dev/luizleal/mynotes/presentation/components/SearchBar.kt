@@ -2,6 +2,8 @@ package dev.luizleal.mynotes.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,7 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import dev.luizleal.mynotes.R
 
@@ -28,6 +33,9 @@ fun SearchBar(
 ) {
     var internalText by remember { mutableStateOf(value) }
 
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+
     TextField(
         value = internalText,
         onValueChange = {
@@ -40,6 +48,15 @@ fun SearchBar(
                 color = MaterialTheme.colorScheme.onSurface,
             )
         },
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search,
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                focusManager.clearFocus()
+                keyboardController?.hide()
+            }
+        ),
         singleLine = true,
         leadingIcon = {
             Icon(
