@@ -42,7 +42,7 @@ class NoteViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("Get all notes", "Error getting notes: $e")
+            Log.e("NoteViewModel", "Error getting notes: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -66,7 +66,7 @@ class NoteViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("Get note by ID", "Error getting note: $e")
+            Log.e("NoteViewModel", "Error getting note: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -90,7 +90,7 @@ class NoteViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("Get notes by folder ID", "Error getting notes: $e")
+            Log.e("NoteViewModel", "Error getting notes: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -114,7 +114,7 @@ class NoteViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("Search notes", "Error searching notes: $e")
+            Log.e("NoteViewModel", "Error searching notes: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -135,7 +135,7 @@ class NoteViewModel @Inject constructor(
             )
             repository.insertNote(note)
         } catch (e: Exception) {
-            Log.e("Insert note", "Error inserting note: $e")
+            Log.e("NoteViewModel", "Error inserting note: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -152,7 +152,7 @@ class NoteViewModel @Inject constructor(
         try {
             repository.updateNote(note)
         } catch (e: Exception) {
-            Log.e("Update note", "Error updating note: $e")
+            Log.e("NoteViewModel", "Error updating note: $e")
             _noteListState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
@@ -169,7 +169,7 @@ class NoteViewModel @Inject constructor(
         try {
             repository.deleteNote(note)
         } catch (e: Exception) {
-            Log.e("Delete note", "Error deleting note: $e")
+            Log.e("NoteViewModel", "Error deleting note: $e")
             _noteState.update { state ->
                 state.copy(error = e.message, isLoading = false)
             }
