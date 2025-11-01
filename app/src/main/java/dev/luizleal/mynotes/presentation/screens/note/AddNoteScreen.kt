@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,11 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dev.luizleal.mynotes.presentation.components.CustomAlertDialog
 import dev.luizleal.mynotes.presentation.components.EditorFields
 import dev.luizleal.mynotes.presentation.components.EditorHeader
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNoteScreen(
     onNavigateBack: () -> Unit,
@@ -36,6 +39,8 @@ fun AddNoteScreen(
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
+    var leaveScreenAlertDialog by remember { mutableStateOf(false) }
+
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -46,7 +51,13 @@ fun AddNoteScreen(
                 .padding(16.dp)
         ) {
             EditorHeader(
-                onNavigateBack = onNavigateBack,
+                onNavigateBack = {
+                    if (title.isNotBlank() || content.isNotEmpty()) {
+                        leaveScreenAlertDialog = true
+                    } else {
+                        onNavigateBack()
+                    }
+                },
                 onSave = {
                     noteViewModel.insertNote(title, content)
                     onNavigateBack()
@@ -64,6 +75,24 @@ fun AddNoteScreen(
                     content = value
                 }
             )
+        }
+
+        when {
+            leaveScreenAlertDialog -> {
+                CustomAlertDialog(
+                    title = "Discard Changes?",
+                    description = "All unsaved changes on this note will be permanently lost.",
+                    onConfirmText = "Continue Editing",
+                    onDismissText = "Discard",
+                    onConfirm = {
+                        leaveScreenAlertDialog = false
+                    },
+                    onDismiss = {
+                        leaveScreenAlertDialog = false // <- isso serve pra fechar o AlertDialog antes de voltar para a tela inicial
+                        onNavigateBack()
+                    }
+                )
+            }
         }
     }
 }
