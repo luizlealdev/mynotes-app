@@ -17,13 +17,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dev.luizleal.mynotes.presentation.components.EditorFields
 import dev.luizleal.mynotes.presentation.components.EditorHeader
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
+import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
 @Composable
 fun AddNoteScreen(
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    noteViewModel: NoteViewModel = hiltViewModel()
 ) {
     var title by remember { mutableStateOf("") }
     var content by remember { mutableStateOf("") }
@@ -44,7 +47,10 @@ fun AddNoteScreen(
         ) {
             EditorHeader(
                 onNavigateBack = onNavigateBack,
-                onSave = {},
+                onSave = {
+                    noteViewModel.insertNote(title, content)
+                    onNavigateBack()
+                },
                 onUndo = {},
                 onRedo = {}
             )
