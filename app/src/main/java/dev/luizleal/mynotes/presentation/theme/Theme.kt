@@ -16,7 +16,8 @@ private val DarkColorScheme = darkColorScheme(
     surface = BackgroundSecondaryLight,
     onPrimary = TextPrimaryLight,
     onBackground = TextPrimaryLight,
-    onSurface = TextSecondaryLight,
+    onSurface = TextSecondaryLight, //<- odeio esse tipo de nomeclatura
+    onSurfaceVariant = TextSecondaryLight.copy(alpha = 0.6f),
     tertiary = BackgroundTertiaryLight
 )
 
@@ -27,6 +28,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = TextPrimaryLight,
     onBackground = TextPrimaryLight,
     onSurface = TextSecondaryLight,
+    onSurfaceVariant = TextSecondaryLight.copy(alpha = 0.6f),
     tertiary = BackgroundTertiaryLight
 )
 
