@@ -9,4 +9,4 @@ object Home
 object AddNote
 
 @Serializable
-data class EditNote(val id: Int)
+data class NoteDetails(val id: Long)
