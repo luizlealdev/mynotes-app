@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import dev.luizleal.mynotes.presentation.screens.home.HomeScreen
 import dev.luizleal.mynotes.presentation.screens.note.AddNoteScreen
+import dev.luizleal.mynotes.presentation.screens.note.NoteDetailsScreen
 import dev.luizleal.mynotes.util.ScreenAnimations.slideInLeft
 import dev.luizleal.mynotes.util.ScreenAnimations.slideInRight
 import dev.luizleal.mynotes.util.ScreenAnimations.slideOutLeft
@@ -28,6 +29,9 @@ fun AppNavHost() {
             HomeScreen(
                 onNavigateToAddNote = {
                     navController.navigate(AddNote)
+                },
+                onNavigateToNoteDetails = { noteId ->
+                    navController.navigate(NoteDetails(noteId))
                 }
             )
         }
@@ -43,12 +47,17 @@ fun AppNavHost() {
             )
         }
 
-        composable<EditNote>(
+        composable<NoteDetails>(
             enterTransition = { slideInRight() },
             popExitTransition = { slideOutLeft() }
         ) { backStackEntry ->
-            backStackEntry.toRoute<EditNote>()
-            TODO("implementa o edit screen aí macho kkkk")
+            val noteDetailsRoute = backStackEntry.toRoute<NoteDetails>()
+            NoteDetailsScreen(
+                noteId = noteDetailsRoute.id,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

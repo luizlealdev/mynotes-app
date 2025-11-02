@@ -32,6 +32,7 @@ import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 @Composable
 fun HomeScreen(
     onNavigateToAddNote: () -> Unit,
+    onNavigateToNoteDetails: (Long) -> Unit,
     noteViewModel: NoteViewModel = hiltViewModel()
 ) {
 
@@ -83,7 +84,9 @@ fun HomeScreen(
                             items(notes) { note ->
                                 NoteCard(
                                     note = note,
-                                    onClick = {}
+                                    onClick = {
+                                        onNavigateToNoteDetails(note.id)
+                                    }
                                 )
                             }
                         }
@@ -109,7 +112,8 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     MyNotesTheme {
         HomeScreen(
-            onNavigateToAddNote = {}
+            onNavigateToAddNote = {},
+            onNavigateToNoteDetails = {}
         )
     }
 }
