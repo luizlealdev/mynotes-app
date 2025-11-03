@@ -1,5 +1,7 @@
 package dev.luizleal.mynotes.presentation.components
 
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
@@ -12,16 +14,21 @@ import androidx.compose.ui.text.TextStyle
 @Composable
 fun CommonTextField(
     modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     placeholder: @Composable () -> Unit,
     textStyle: TextStyle = LocalTextStyle.current,
     singleLine: Boolean = false,
     maxLines: Int? = null,
 ) {
+
+    val lineLimits = when {
+        maxLines != null -> TextFieldLineLimits.MultiLine(maxLines)
+        singleLine -> TextFieldLineLimits.SingleLine
+        else -> TextFieldLineLimits.Default
+    }
+
     TextField(
-        value = value,
-        onValueChange = onValueChange,
+        state = state,
         placeholder = placeholder,
         textStyle = textStyle,
         colors = TextFieldDefaults.colors(
@@ -35,8 +42,7 @@ fun CommonTextField(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
         ),
-        singleLine = singleLine,
-        maxLines = if (singleLine) 1 else maxLines ?: Int.MAX_VALUE,
+        lineLimits = lineLimits,
         modifier = modifier
     )
 }

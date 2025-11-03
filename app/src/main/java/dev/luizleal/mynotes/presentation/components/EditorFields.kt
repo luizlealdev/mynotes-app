@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,15 +16,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EditorFields(
-    title: String,
-    onTitleChange: (String) -> Unit,
-    content: String,
-    onContentChange: (String) -> Unit
+    titleState: TextFieldState,
+    contentState: TextFieldState,
 ) {
 
     CommonTextField(
-        value = title,
-        onValueChange = onTitleChange,
+        state = titleState,
         placeholder = {
             Text(
                 text = "Note title",
@@ -43,11 +41,10 @@ fun EditorFields(
             .padding(0.dp)
     )
     CommonTextField(
-        value = content,
-        onValueChange = onContentChange,
+        state = contentState,
         placeholder = {
             Text(
-                text = "Type something...",
+                text = "Type something... \n\n\n\n\n",
                 color = MaterialTheme.colorScheme.onSurface
             )
         },
