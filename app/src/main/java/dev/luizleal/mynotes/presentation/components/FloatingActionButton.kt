@@ -107,7 +107,6 @@ private fun FabOption(
         color = MaterialTheme.colorScheme.surface,
         shape = CircleShape,
         //shadowElevation = 8.dp,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onTertiary),
         modifier = Modifier.size(48.dp)
     ) {
         Icon(
