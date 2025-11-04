@@ -1,10 +1,14 @@
 package dev.luizleal.mynotes.presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.input.UndoState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -18,9 +22,8 @@ import dev.luizleal.mynotes.R
 @Composable
 fun EditorHeader(
     modifier: Modifier = Modifier,
+    undoState: UndoState,
     onNavigateBack: () -> Unit,
-    onUndo: () -> Unit,
-    onRedo: () -> Unit,
     onSave: () -> Unit
 ) {
     Row(
@@ -40,22 +43,34 @@ fun EditorHeader(
         Spacer(modifier = Modifier.weight(1f))
 
         IconButton(
-            onClick = onUndo
+            enabled = undoState.canUndo,
+            onClick = {
+                undoState.undo()
+            },
+            colors = IconButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                disabledContentColor = MaterialTheme.colorScheme.onSurface
+            )
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_undo_left),
-                contentDescription = "Undo",
-                tint = MaterialTheme.colorScheme.onBackground
+                contentDescription = "Undo"
             )
         }
 
         IconButton(
-            onClick = onRedo
+            enabled = undoState.canRedo,
+            onClick = {
+                undoState.redo()
+            },
+            colors = IconButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                disabledContentColor = MaterialTheme.colorScheme.onSurface
+            )
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_undo_right),
-                contentDescription = "Undo",
-                tint = MaterialTheme.colorScheme.onBackground
+                contentDescription = "Undo"
             )
         }
 
@@ -73,13 +88,14 @@ fun EditorHeader(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
 private fun EditorHeaderPreview() {
+    val state = rememberTextFieldState()
     EditorHeader(
         onNavigateBack = {},
-        onUndo = {},
-        onRedo = {},
+        undoState = state.undoState,
         onSave = {}
     )
 }

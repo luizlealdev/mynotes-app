@@ -1,11 +1,13 @@
 package dev.luizleal.mynotes.presentation.screens.note
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -25,21 +27,24 @@ import dev.luizleal.mynotes.presentation.components.EditorHeader
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class
+)
 @Composable
 fun AddNoteScreen(
     onNavigateBack: () -> Unit,
     noteViewModel: NoteViewModel = hiltViewModel()
 ) {
-    var title by remember { mutableStateOf("") }
-    var content by remember { mutableStateOf("") }
+    val titleState = rememberTextFieldState()
+    val contentState = rememberTextFieldState()
 
     val scrollState = rememberScrollState()
-    LaunchedEffect(content) {
+    LaunchedEffect(contentState.text) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
-    var leaveScreenAlertDialog by remember { mutableStateOf(false) }
+    var showExitConfirmation by remember { mutableStateOf(false) }
 
     Scaffold { innerPadding ->
         Column(
@@ -52,43 +57,40 @@ fun AddNoteScreen(
         ) {
             EditorHeader(
                 onNavigateBack = {
-                    if (title.isNotBlank() || content.isNotEmpty()) {
-                        leaveScreenAlertDialog = true
+                    if (titleState.text.isNotBlank() || contentState.text.isNotEmpty()) {
+                        showExitConfirmation = true
                     } else {
                         onNavigateBack()
                     }
                 },
                 onSave = {
-                    noteViewModel.insertNote(title, content)
+                    noteViewModel.insertNote(
+                        title = titleState.text.toString(),
+                        content = contentState.text.toString()
+                    )
                     onNavigateBack()
                 },
-                onUndo = {},
-                onRedo = {}
+               undoState = contentState.undoState
             )
             EditorFields(
-                title = title,
-                onTitleChange = { value ->
-                    title = value
-                },
-                content = content,
-                onContentChange = { value ->
-                    content = value
-                }
+                titleState = titleState,
+                contentState = contentState
             )
         }
 
         when {
-            leaveScreenAlertDialog -> {
+            showExitConfirmation -> {
                 CustomAlertDialog(
                     title = "Discard Changes?",
                     description = "All unsaved changes on this note will be permanently lost.",
                     onConfirmText = "Continue Editing",
                     onDismissText = "Discard",
                     onConfirm = {
-                        leaveScreenAlertDialog = false
+                        showExitConfirmation = false
                     },
                     onDismiss = {
-                        leaveScreenAlertDialog = false // <- isso serve pra fechar o AlertDialog antes de voltar para a tela inicial
+                        showExitConfirmation =
+                            false // <- isso serve pra fechar o AlertDialog antes de voltar para a tela inicial
                         onNavigateBack()
                     }
                 )
