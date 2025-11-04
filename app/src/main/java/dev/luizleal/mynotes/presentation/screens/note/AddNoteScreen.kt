@@ -41,7 +41,12 @@ fun AddNoteScreen(
 
     val scrollState = rememberScrollState()
     LaunchedEffect(contentState.text) {
-        scrollState.animateScrollTo(scrollState.maxValue)
+        /**
+         * Verifica se o cursor está no final e só então faz o scroll para baixo
+         */
+        if (contentState.selection.start == contentState.text.length) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
     }
 
     var showExitConfirmation by remember { mutableStateOf(false) }
@@ -64,11 +69,13 @@ fun AddNoteScreen(
                     }
                 },
                 onSave = {
-                    noteViewModel.insertNote(
-                        title = titleState.text.toString(),
-                        content = contentState.text.toString()
-                    )
-                    onNavigateBack()
+                    if (titleState.text.isNotBlank() && contentState.text.isNotEmpty()) {
+                        noteViewModel.insertNote(
+                            title = titleState.text.toString().trim(),
+                            content = contentState.text.toString().trim()
+                        )
+                        onNavigateBack()
+                    }
                 },
                undoState = contentState.undoState
             )
