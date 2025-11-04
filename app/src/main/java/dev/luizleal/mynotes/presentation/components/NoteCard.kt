@@ -45,18 +45,22 @@ fun NoteCard(
                 fontWeight = FontWeight.Medium,
             ),
         )
-        Text(
-            text = note.content,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 6,
-            overflow = TextOverflow.Ellipsis
-        )
+        if (note.content.isNotEmpty()) {
+            Text(
+                text = note.content,
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 6,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = note.updatedAt?.formatTo() ?: "",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelMedium.copy(
+                fontWeight = FontWeight.Normal
+            )
         )
     }
 }
