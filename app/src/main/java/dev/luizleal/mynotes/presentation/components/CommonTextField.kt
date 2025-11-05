@@ -18,6 +18,7 @@ fun CommonTextField(
     placeholder: @Composable () -> Unit,
     textStyle: TextStyle = LocalTextStyle.current,
     singleLine: Boolean = false,
+    enabled: Boolean = true,
     maxLines: Int? = null,
 ) {
 
@@ -34,14 +35,16 @@ fun CommonTextField(
         colors = TextFieldDefaults.colors(
             focusedTextColor = MaterialTheme.colorScheme.onBackground,
             unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+            disabledTextColor = MaterialTheme.colorScheme.onBackground,
             focusedContainerColor = Color.Transparent,
             unfocusedContainerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
             errorContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
         ),
+        enabled = enabled,
         lineLimits = lineLimits,
         modifier = modifier
     )

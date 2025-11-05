@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 fun EditorFields(
     titleState: TextFieldState,
     contentState: TextFieldState,
+    readOnly: Boolean
 ) {
 
     CommonTextField(
@@ -35,6 +36,7 @@ fun EditorFields(
             fontSize = MaterialTheme.typography.displaySmall.fontSize,
             fontWeight = FontWeight.SemiBold
         ),
+        enabled = !readOnly,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(0.dp)
@@ -49,6 +51,7 @@ fun EditorFields(
             )
         },
         maxLines = Int.MAX_VALUE,
+        enabled = !readOnly,
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxSize()
