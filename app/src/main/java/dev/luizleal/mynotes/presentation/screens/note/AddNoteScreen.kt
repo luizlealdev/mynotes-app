@@ -27,6 +27,9 @@ import dev.luizleal.mynotes.presentation.components.EditorHeader
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
+/**
+ * TODO: Implementar barra de ferramentas, com algumas opções de edição de text (bold, italic, underline, etc)
+ */
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalFoundationApi::class
@@ -38,6 +41,8 @@ fun AddNoteScreen(
 ) {
     val titleState = rememberTextFieldState()
     val contentState = rememberTextFieldState()
+
+    var readOnly by remember { mutableStateOf(false) }
 
     val scrollState = rememberScrollState()
     LaunchedEffect(contentState.text) {
@@ -61,6 +66,8 @@ fun AddNoteScreen(
                 .padding(16.dp)
         ) {
             EditorHeader(
+                readOnly = readOnly,
+                undoState = contentState.undoState,
                 onNavigateBack = {
                     if (titleState.text.isNotBlank() || contentState.text.isNotEmpty()) {
                         showExitConfirmation = true
@@ -77,11 +84,14 @@ fun AddNoteScreen(
                         onNavigateBack()
                     }
                 },
-               undoState = contentState.undoState
+                onViewModeChange = {
+                    readOnly = !readOnly
+                }
             )
             EditorFields(
                 titleState = titleState,
-                contentState = contentState
+                contentState = contentState,
+                readOnly = readOnly
             )
         }
 
