@@ -1,8 +1,13 @@
 package dev.luizleal.mynotes.presentation.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.input.UndoState
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -30,7 +35,8 @@ fun EditorHeader(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(
             onClick = onNavigateBack
@@ -42,74 +48,86 @@ fun EditorHeader(
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        if (readOnly) {
-            IconButton(
-                onClick = onViewModeChange,
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground,
-                    disabledContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_edit),
-                    contentDescription = "Edit note"
-                )
-            }
-        } else {
-            IconButton(
-                enabled = undoState.canUndo,
-                onClick = {
-                    undoState.undo()
-                },
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground,
-                    disabledContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_undo_left),
-                    contentDescription = "Undo"
-                )
-            }
-            IconButton(
-                enabled = undoState.canRedo,
-                onClick = {
-                    undoState.redo()
-                },
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground,
-                    disabledContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_undo_right),
-                    contentDescription = "Undo"
-                )
-            }
-            IconButton(
-                onClick = onViewModeChange,
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground,
-                    disabledContentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_lock),
-                    contentDescription = "Lock editor"
-                )
-            }
-            TextButton(
-                onClick = onSave
-            ) {
-                Text(
-                    text = "Save",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.primary
-                )
+        AnimatedContent(
+            targetState = readOnly,
+            transitionSpec = {
+                fadeIn(tween(200)) togetherWith fadeOut(tween(200))
+            },
+            label = "ViewModeSwitchAnimation"
+        ) { isReadOnly ->
+            if (isReadOnly) {
+                IconButton(
+                    onClick = onViewModeChange,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onBackground,
+                        disabledContentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_edit),
+                        contentDescription = "Edit note"
+                    )
+                }
+            } else {
+                Row {
+                    //Undo button
+                    IconButton(
+                        enabled = undoState.canUndo,
+                        onClick = {
+                            undoState.undo()
+                        },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onBackground,
+                            disabledContentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_undo_left),
+                            contentDescription = "Undo"
+                        )
+                    }
+                    //Redo button
+                    IconButton(
+                        enabled = undoState.canRedo,
+                        onClick = {
+                            undoState.redo()
+                        },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onBackground,
+                            disabledContentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_undo_right),
+                            contentDescription = "Undo"
+                        )
+                    }
+                    //Lock button
+                    IconButton(
+                        onClick = onViewModeChange,
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onBackground,
+                            disabledContentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_lock),
+                            contentDescription = "Lock editor"
+                        )
+                    }
+                    //Save button
+                    TextButton(
+                        onClick = onSave
+                    ) {
+                        Text(
+                            text = "Save",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
             }
         }
     }
