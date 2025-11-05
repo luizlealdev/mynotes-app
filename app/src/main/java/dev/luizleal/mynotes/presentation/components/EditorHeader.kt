@@ -23,7 +23,9 @@ import dev.luizleal.mynotes.R
 fun EditorHeader(
     modifier: Modifier = Modifier,
     undoState: UndoState,
+    readOnly: Boolean,
     onNavigateBack: () -> Unit,
+    onViewModeChange: () -> Unit,
     onSave: () -> Unit
 ) {
     Row(
@@ -42,48 +44,73 @@ fun EditorHeader(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        IconButton(
-            enabled = undoState.canUndo,
-            onClick = {
-                undoState.undo()
-            },
-            colors = IconButtonDefaults.iconButtonColors(
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                disabledContentColor = MaterialTheme.colorScheme.onSurface
-            )
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_undo_left),
-                contentDescription = "Undo"
-            )
-        }
-
-        IconButton(
-            enabled = undoState.canRedo,
-            onClick = {
-                undoState.redo()
-            },
-            colors = IconButtonDefaults.iconButtonColors(
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                disabledContentColor = MaterialTheme.colorScheme.onSurface
-            )
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_undo_right),
-                contentDescription = "Undo"
-            )
-        }
-
-        TextButton(
-            onClick = onSave
-        ) {
-            Text(
-                text = "Save",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold
-                ),
-                color = MaterialTheme.colorScheme.primary
-            )
+        if (readOnly) {
+            IconButton(
+                onClick = onViewModeChange,
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_edit),
+                    contentDescription = "Edit note"
+                )
+            }
+        } else {
+            IconButton(
+                enabled = undoState.canUndo,
+                onClick = {
+                    undoState.undo()
+                },
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_undo_left),
+                    contentDescription = "Undo"
+                )
+            }
+            IconButton(
+                enabled = undoState.canRedo,
+                onClick = {
+                    undoState.redo()
+                },
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_undo_right),
+                    contentDescription = "Undo"
+                )
+            }
+            IconButton(
+                onClick = onViewModeChange,
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_lock),
+                    contentDescription = "Lock editor"
+                )
+            }
+            TextButton(
+                onClick = onSave
+            ) {
+                Text(
+                    text = "Save",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }
@@ -96,6 +123,8 @@ private fun EditorHeaderPreview() {
     EditorHeader(
         onNavigateBack = {},
         undoState = state.undoState,
+        readOnly = false,
+        onViewModeChange = {},
         onSave = {}
     )
 }
