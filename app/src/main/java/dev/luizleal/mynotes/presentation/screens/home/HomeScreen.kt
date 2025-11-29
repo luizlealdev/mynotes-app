@@ -68,7 +68,19 @@ fun HomeScreen(
 
             //Spacer(modifier = Modifier.height(20.dp))
 
-            SearchBar()
+            SearchBar(
+                onTextChange = { query ->
+                    if (query.isNotEmpty()) {
+                        /**
+                         * fazer isso é ruim, mas como é um app que usa banco de dados local
+                         * e que eu não vou dar continuidade, vou deixar assim por enquanto rs
+                         */
+                        noteViewModel.searchNotes(query)
+                    } else {
+                        noteViewModel.getAllNotes()
+                    }
+                }
+            )
 
             when {
                 noteListStateValue.data != null -> {

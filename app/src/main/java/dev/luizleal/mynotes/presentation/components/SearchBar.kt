@@ -65,6 +65,15 @@ fun SearchBar(
                 tint = MaterialTheme.colorScheme.onSurface
             )
         },
+        trailingIcon = {
+            if (internalText.isNotEmpty()) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_search),
+                    contentDescription = "Search",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
         shape = CircleShape,
         colors = TextFieldDefaults.colors(
             focusedTextColor = MaterialTheme.colorScheme.onBackground,
