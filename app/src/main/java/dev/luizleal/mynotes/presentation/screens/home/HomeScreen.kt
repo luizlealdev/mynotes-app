@@ -2,17 +2,17 @@ package dev.luizleal.mynotes.presentation.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,12 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import dev.luizleal.mynotes.presentation.components.FloatingActionButton
+import dev.luizleal.mynotes.presentation.components.FabOptions
+import dev.luizleal.mynotes.presentation.components.CustomFloatingActionButton
+import dev.luizleal.mynotes.presentation.components.FolderSheet
 import dev.luizleal.mynotes.presentation.components.NoteCard
 import dev.luizleal.mynotes.presentation.components.SearchBar
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
 import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onNavigateToAddNote: () -> Unit,
@@ -41,15 +44,28 @@ fun HomeScreen(
 
     var isFabExpanded by remember { mutableStateOf(false) }
 
+    val folderSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    var showFolderSheet by remember { mutableStateOf(false) }
+
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            CustomFloatingActionButton(
                 expanded = isFabExpanded,
                 onFabClick = {
                     isFabExpanded = !isFabExpanded
                 },
                 onOptionClick = { option ->
-                    onNavigateToAddNote()
+                    when (option) {
+                        FabOptions.ADD_NOTE -> {
+                            onNavigateToAddNote()
+                        }
+
+                        FabOptions.ADD_FOLDER -> {
+                            showFolderSheet = true
+                        }
+                    }
                 }
             )
         }
@@ -66,8 +82,6 @@ fun HomeScreen(
                 style = MaterialTheme.typography.displaySmall
             )
 
-            //Spacer(modifier = Modifier.height(20.dp))
-
             SearchBar(
                 onTextChange = { query ->
                     if (query.isNotEmpty()) {
@@ -79,6 +93,17 @@ fun HomeScreen(
                     } else {
                         noteViewModel.getAllNotes()
                     }
+                }
+            )
+
+            FolderSheet(
+                sheetState = folderSheetState,
+                open = showFolderSheet,
+                onOpenChange = {
+                    showFolderSheet = !showFolderSheet
+                },
+                onConfirmButton = { createdFolder ->
+                    //TODO: Criar pasta
                 }
             )
 
