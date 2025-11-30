@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -28,12 +27,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.luizleal.mynotes.R
 
+enum class FabOptions {
+    ADD_FOLDER, ADD_NOTE
+}
+
 @Composable
-fun FloatingActionButton(
+fun CustomFloatingActionButton(
     modifier: Modifier = Modifier,
     expanded: Boolean = false,
     onFabClick: () -> Unit,
-    onOptionClick: (String) -> Unit
+    onOptionClick: (FabOptions) -> Unit
 ) {
 
     val fabRotation by animateFloatAsState(
@@ -64,14 +67,14 @@ fun FloatingActionButton(
                     icon = R.drawable.ic_note_add,
                     label = "Add note",
                     onClick = {
-                        onOptionClick("AddNote")
+                        onOptionClick(FabOptions.ADD_NOTE)
                     }
                 )
                 FabOption(
                     icon = R.drawable.ic_folder,
                     label = "Add folder",
                     onClick = {
-                        onOptionClick("AddFolder")
+                        onOptionClick(FabOptions.ADD_FOLDER)
                     }
                 )
             }
@@ -121,7 +124,7 @@ private fun FabOption(
 @Preview()
 @Composable
 private fun FloatingActionButtonPreview() {
-    FloatingActionButton(
+    CustomFloatingActionButton(
         expanded = true,
         onFabClick = {},
         onOptionClick = {}
