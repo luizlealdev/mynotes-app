@@ -23,12 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import dev.luizleal.mynotes.presentation.components.FabOptions
 import dev.luizleal.mynotes.presentation.components.CustomFloatingActionButton
+import dev.luizleal.mynotes.presentation.components.FabOptions
+import dev.luizleal.mynotes.presentation.components.FolderCard
 import dev.luizleal.mynotes.presentation.components.FolderSheet
 import dev.luizleal.mynotes.presentation.components.NoteCard
 import dev.luizleal.mynotes.presentation.components.SearchBar
 import dev.luizleal.mynotes.presentation.theme.MyNotesTheme
+import dev.luizleal.mynotes.presentation.viewmodel.FolderViewModel
 import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,11 +38,15 @@ import dev.luizleal.mynotes.presentation.viewmodel.NoteViewModel
 fun HomeScreen(
     onNavigateToAddNote: () -> Unit,
     onNavigateToNoteDetails: (Long) -> Unit,
-    noteViewModel: NoteViewModel = hiltViewModel()
+    noteViewModel: NoteViewModel = hiltViewModel(),
+    folderViewModel: FolderViewModel = hiltViewModel()
 ) {
 
     val noteListState = noteViewModel.noteListState.collectAsState()
     val noteListStateValue = noteListState.value
+
+    val folderListState = folderViewModel.folderListState.collectAsState()
+    val folderListStateValue = folderListState.value
 
     var isFabExpanded by remember { mutableStateOf(false) }
 
@@ -103,36 +109,50 @@ fun HomeScreen(
                     showFolderSheet = !showFolderSheet
                 },
                 onConfirmButton = { createdFolder ->
-                    //TODO: Criar pasta
+                    /**
+                     * Atualiza se existir e cria se não existir, blz?
+                     */
+                    folderViewModel.insertFolder(createdFolder)
+                    showFolderSheet = false
                 }
             )
 
             when {
-                noteListStateValue.data != null -> {
+                noteListStateValue.data != null && folderListStateValue.data != null -> {
+                    val folders = folderListStateValue.data
                     val notes = noteListStateValue.data
 
-                    if (notes.isNotEmpty()) {
-                        LazyVerticalStaggeredGrid(
-                            modifier = Modifier.fillMaxSize(),
-                            columns = StaggeredGridCells.Adaptive(180.dp),
-                            verticalItemSpacing = 6.dp,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            items(notes) { note ->
-                                NoteCard(
-                                    note = note,
-                                    onClick = {
-                                        onNavigateToNoteDetails(note.id)
-                                    }
-                                )
-                            }
+                    LazyVerticalStaggeredGrid(
+                        modifier = Modifier.fillMaxSize(),
+                        columns = StaggeredGridCells.Adaptive(180.dp),
+                        verticalItemSpacing = 6.dp,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        items(folders) {folder ->
+                            FolderCard(
+                                folder = folder,
+                                onClick = {
+
+                                }
+                            )
                         }
-                    } else {
-                        Text("No notes found")
+                        items(notes) { note ->
+                            NoteCard(
+                                note = note,
+                                onClick = {
+                                    onNavigateToNoteDetails(note.id)
+                                }
+                            )
+                        }
+                    }
+
+
+                    if (notes.isEmpty() && folders.isEmpty()) {
+                        Text("Nothing have been found")
                     }
                 }
 
-                noteListStateValue.isLoading -> {
+                noteListStateValue.isLoading && folderListStateValue.isLoading -> {
                     //TODO: Implement skeleton loading
                 }
 
