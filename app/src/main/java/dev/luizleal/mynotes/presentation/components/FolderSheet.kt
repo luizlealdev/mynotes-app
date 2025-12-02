@@ -112,22 +112,20 @@ fun FolderSheet(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     items(FolderColor.entries) { currentColor ->
-                        val darkerColor = lerp(Color.Black, Color(currentColor.hex), 0.75f)
-
                         Surface(
                             onClick = {
                                 color = currentColor
                             },
                             color = Color(currentColor.hex),
                             shape = RoundedCornerShape(12.dp),
-                            border = BorderStroke(1.5.dp, darkerColor),
+                            border = BorderStroke(1.5.dp, currentColor.darken()),
                             modifier = Modifier.size(48.dp)
                         ) {
                             if (currentColor == color) {
                                 Icon(
                                     painter = painterResource(R.drawable.ic_check),
                                     contentDescription = currentColor.name,
-                                    tint = darkerColor,
+                                    tint = currentColor.darken(),
                                     modifier = Modifier.padding(12.dp)
                                 )
                             }
