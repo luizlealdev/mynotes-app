@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.luizleal.mynotes.domain.model.Folder
 import dev.luizleal.mynotes.domain.repository.FolderRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class FolderViewModel @Inject constructor(
@@ -31,6 +31,30 @@ class FolderViewModel @Inject constructor(
 
         try {
             repository.getAllFolders().collect { folders ->
+                _folderListState.update { state ->
+                    state.copy(
+                        data = folders,
+                        isLoading = false
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("FolderViewModel", "Error getting folders: $e")
+            _folderListState.update { state ->
+                state.copy(error = e.message, isLoading = false)
+            }
+
+            return@launch
+        }
+    }
+
+    fun searchFolders(query: String) = viewModelScope.launch {
+        _folderListState.update { state ->
+            state.copy(isLoading = true)
+        }
+
+        try {
+            repository.searchNotes(query).collect { folders ->
                 _folderListState.update { state ->
                     state.copy(
                         data = folders,

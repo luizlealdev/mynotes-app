@@ -9,4 +9,5 @@ interface FolderRepository {
     suspend fun updateFolder(folder: Folder)
     suspend fun deleteFolder(folder: Folder)
     fun getAllFolders(): Flow<List<Folder>>
+    fun searchNotes(query: String): Flow<List<Folder>>
 }

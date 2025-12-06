@@ -34,4 +34,12 @@ class FolderRepositoryImpl(
             }
         }
     }
+
+    override fun searchNotes(query: String): Flow<List<Folder>> {
+        return folderDao.searchFolders(query).map { folders ->
+            folders.map {
+                it.toModel()
+            }
+        }
+    }
 }
