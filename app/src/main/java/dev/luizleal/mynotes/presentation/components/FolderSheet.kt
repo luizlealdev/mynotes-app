@@ -1,5 +1,11 @@
 package dev.luizleal.mynotes.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -121,7 +127,17 @@ fun FolderSheet(
                             border = BorderStroke(1.5.dp, currentColor.darken()),
                             modifier = Modifier.size(48.dp)
                         ) {
-                            if (currentColor == color) {
+                            AnimatedVisibility(
+                                visible = currentColor == color,
+                                enter = fadeIn(tween(200)) + scaleIn(
+                                    initialScale = 0.4f,
+                                    animationSpec = tween(200)
+                                ),
+                                exit = fadeOut(tween(200)) + scaleOut(
+                                    targetScale = 0.4f,
+                                    animationSpec = tween(200)
+                                )
+                            ) {
                                 Icon(
                                     painter = painterResource(R.drawable.ic_check),
                                     contentDescription = currentColor.name,
