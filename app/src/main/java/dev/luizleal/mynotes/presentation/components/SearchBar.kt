@@ -1,10 +1,12 @@
 package dev.luizleal.mynotes.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -21,12 +23,13 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import dev.luizleal.mynotes.R
 
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    value: String = "",
+    value: String = "as",
     placeholder: String = "Search for notes or folders...",
     onTextChange: (String) -> Unit = {},
     //onSearchFocusChange: (Boolean) -> Unit = {},
@@ -67,11 +70,19 @@ fun SearchBar(
         },
         trailingIcon = {
             if (internalText.isNotEmpty()) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_search),
-                    contentDescription = "Search",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
+                IconButton(
+                    onClick = {
+                        internalText = ""
+                        onTextChange("")
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_close),
+                        contentDescription = "Search",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
         },
         shape = CircleShape,
