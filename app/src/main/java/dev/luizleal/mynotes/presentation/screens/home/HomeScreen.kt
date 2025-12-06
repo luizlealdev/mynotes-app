@@ -1,12 +1,15 @@
 package dev.luizleal.mynotes.presentation.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -76,89 +79,109 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+
+        /**
+         * Devido a impossibilidade de colocar uma `LazyList` dentro de um `Column` escrolável, é
+         * necessário fazer essa GAMBIARRA: envolver tudo em um `LazyVerticalStaggeredGrid` e os
+         * componentes da UI que não fazem parte da lista de folders e notes, adicionar em um
+         * `item`. É mais feio? Sim, mas também é funcional.
+         */
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Adaptive(180.dp),
             modifier = Modifier
                 .consumeWindowInsets(innerPadding)
                 .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(horizontal = 16.dp),
+            verticalItemSpacing = 6.dp,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            contentPadding = PaddingValues(top = 16.dp, bottom = 16.dp)
         ) {
-            Text(
-                text = "My Notes",
-                style = MaterialTheme.typography.displaySmall
-            )
+            val folders = folderListStateValue.data.orEmpty()
+            val notes = noteListStateValue.data.orEmpty()
 
-            SearchBar(
-                onTextChange = { query ->
-                    if (query.isNotEmpty()) {
-                        /**
-                         * fazer isso é ruim, mas como é um app que usa banco de dados local
-                         * e que eu não vou dar continuidade, vou deixar assim por enquanto rs
-                         */
-                        noteViewModel.searchNotes(query)
-                    } else {
-                        noteViewModel.getAllNotes()
-                    }
-                }
-            )
+            item(
+                span = StaggeredGridItemSpan.FullLine
+            ) {
+                Text(
+                    text = "My Notes",
+                    style = MaterialTheme.typography.displaySmall,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
 
-            FolderSheet(
-                sheetState = folderSheetState,
-                open = showFolderSheet,
-                onOpenChange = {
-                    showFolderSheet = !showFolderSheet
-                },
-                onConfirmButton = { createdFolder ->
-                    /**
-                     * Atualiza se existir e cria se não existir, blz?
-                     */
-                    folderViewModel.insertFolder(createdFolder)
-                    showFolderSheet = false
-                }
-            )
-
-            when {
-                noteListStateValue.data != null && folderListStateValue.data != null -> {
-                    val folders = folderListStateValue.data
-                    val notes = noteListStateValue.data
-
-                    LazyVerticalStaggeredGrid(
-                        modifier = Modifier.fillMaxSize(),
-                        columns = StaggeredGridCells.Adaptive(180.dp),
-                        verticalItemSpacing = 6.dp,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        items(folders) {folder ->
-                            FolderCard(
-                                folder = folder,
-                                onClick = {
-
-                                }
-                            )
+            item(
+                span = StaggeredGridItemSpan.FullLine
+            ) {
+                SearchBar(
+                    onTextChange = { query ->
+                        if (query.isNotEmpty()) {
+                            /**
+                             * fazer isso é ruim, mas como é um app que usa banco de dados local
+                             * e que eu não vou dar continuidade, vou deixar assim por enquanto rs
+                             */
+                            noteViewModel.searchNotes(query)
+                        } else {
+                            noteViewModel.getAllNotes()
                         }
-                        items(notes) { note ->
-                            NoteCard(
-                                note = note,
-                                onClick = {
-                                    onNavigateToNoteDetails(note.id)
-                                }
-                            )
-                        }
+                    },
+                    modifier = Modifier.padding(bottom = 20.dp)
+                )
+            }
+
+            items(folders) { folder ->
+                FolderCard(
+                    folder = folder,
+                    onClick = {
+
                     }
+                )
+            }
 
-
-                    if (notes.isEmpty() && folders.isEmpty()) {
-                        Text("Nothing have been found")
+            items(notes) { note ->
+                NoteCard(
+                    note = note,
+                    onClick = {
+                        onNavigateToNoteDetails(note.id)
                     }
-                }
+                )
+            }
 
-                noteListStateValue.isLoading && folderListStateValue.isLoading -> {
-                    //TODO: Implement skeleton loading
+            if (notes.isEmpty() && folders.isEmpty() && noteListStateValue.isLoading) {
+                item(
+                    span = StaggeredGridItemSpan.FullLine
+                ) {
+                    Text(
+                        text = "Nothing have been found",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                    )
                 }
+            }
 
-                noteListStateValue.error != null -> {
-                    Text("Something went wrong...")
-                }
+        }
+
+        //melhor fora do grid
+        FolderSheet(
+            sheetState = folderSheetState,
+            open = showFolderSheet,
+            onOpenChange = {
+                showFolderSheet = !showFolderSheet
+            },
+            onConfirmButton = { createdFolder ->
+                //Atualiza se existir e cria se não existir, blz?
+                folderViewModel.insertFolder(createdFolder)
+                showFolderSheet = false
+            }
+        )
+
+        when {
+            noteListStateValue.isLoading && folderListStateValue.isLoading -> {
+                //TODO: IMPLEMENT LOADING
+            }
+
+            noteListStateValue.error != null -> {
+                //TODO: IMPLEMENT ERROR
             }
         }
     }
