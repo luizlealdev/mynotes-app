@@ -29,7 +29,7 @@ import dev.luizleal.mynotes.R
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    value: String = "as",
+    value: String = "",
     placeholder: String = "Search for notes or folders...",
     onTextChange: (String) -> Unit = {},
     //onSearchFocusChange: (Boolean) -> Unit = {},
