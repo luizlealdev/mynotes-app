@@ -120,6 +120,7 @@ fun HomeScreen(
                              * e que eu não vou dar continuidade, vou deixar assim por enquanto rs
                              */
                             noteViewModel.searchNotes(query)
+                            folderViewModel.searchFolders(query)
                         } else {
                             noteViewModel.getAllNotes()
                         }
@@ -128,21 +129,29 @@ fun HomeScreen(
                 )
             }
 
-            items(folders) { folder ->
+            items(
+                items = folders,
+                key = { "folder-${it.id}" }
+            ) { folder ->
                 FolderCard(
                     folder = folder,
                     onClick = {
 
-                    }
+                    },
+                    modifier = Modifier.animateItem()
                 )
             }
 
-            items(notes) { note ->
+            items(
+                items = notes,
+                key = { "note-${it.id}" }
+            ) { note ->
                 NoteCard(
                     note = note,
                     onClick = {
                         onNavigateToNoteDetails(note.id)
-                    }
+                    },
+                    modifier = Modifier.animateItem()
                 )
             }
 
